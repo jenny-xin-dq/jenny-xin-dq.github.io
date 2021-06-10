@@ -86,7 +86,7 @@ analytics:
 # Site Author
 author:
   name             : "Jenny Xin"
-  avatar           : "/images/Headshot.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/Headshot.jpeg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science Portfolio"
   location         : "San Francisco, CA"
   email            : "jennydanqi.xin@gmail.com"
