@@ -1,14 +1,12 @@
 ---
-title: "Data Science Project"
-date: 2018-01-28
-tags: [data wrangling, data science, messy data]
+title: "Amazon Echo Show Business Insights Report"
+date: 2021-02-10
+tags: [text analytics, NLP, sentiment analysis, data science]
 header:
   image: "/images/SF-golden-gate.jpeg"
 excerpt: "Text Analytics, NLP, Sentiment Analysis, Data Science"
 mathjax: "true"
 ---
-
-# Amazon Echo
 
 ## Introduction
 
