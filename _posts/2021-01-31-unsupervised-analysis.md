@@ -68,7 +68,7 @@ want to change their laptop.
 **Importing Packages**
 
 ```python
-   import sys                      # system-specific parameters and functions
+import sys                      # system-specific parameters and functions
 import pandas as pd # data science essentials
 import seaborn as sns# essential graphical output
 import matplotlib.pyplot as plt # enhanced graphical output
@@ -113,7 +113,6 @@ We will start with data cleaning and creation of new variables for our analysis
 ```python
 #Creating a new list with the new names for each column
 col_dict = {
-    
     "surveyID": "survey_ID_num",
     "Am the life of the party": "life_of_party",
     "Feel little concern for others": "concern_others",
@@ -207,3 +206,366 @@ team_df['respond_effectively_3']  = (team_df['respond_effectively_1']+team_df['r
 team_df['takes_initiative_3']  = (team_df['takes_initiative_1']+team_df['takes_initiative_2'])/2
 team_df['encourage_open_discussions_3']  = (team_df['encourage_open_discussions_1']+team_df['encourage_open_discussions_2'])/2
 ```
+```python
+#Creating a loop to assign these values to the column respond effectively
+team_df['respond_effectively']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'respond_effectively_3'] >= 0 and team_df.loc[index, 'respond_effectively_3'] < 1:
+        team_df.loc[index, 'respond_effectively'] = 0
+        
+    if team_df.loc[index, 'respond_effectively_3'] >= 1 and team_df.loc[index, 'respond_effectively_3'] < 2:
+        team_df.loc[index, 'respond_effectively'] = 1
+
+    if team_df.loc[index, 'respond_effectively_3'] >= 2 and team_df.loc[index, 'respond_effectively_3'] < 3:
+        team_df.loc[index, 'respond_effectively'] = 2
+    
+    if team_df.loc[index, 'respond_effectively_3'] >= 3 and team_df.loc[index, 'respond_effectively_3'] < 4:
+        team_df.loc[index, 'respond_effectively'] = 3
+        
+    if team_df.loc[index, 'respond_effectively_3'] >= 4 and team_df.loc[index, 'respond_effectively_3'] < 5:
+        team_df.loc[index, 'respond_effectively'] = 4
+        
+    if team_df.loc[index, 'respond_effectively_3'] == 5:
+        team_df.loc[index, 'respond_effectively'] = 5
+```
+```python
+#Creating a loop to assign these values to the column takes initiative
+team_df['takes_initiative']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'takes_initiative_3'] >= 0 and team_df.loc[index, 'takes_initiative_3'] < 1:
+        team_df.loc[index, 'takes_initiative'] = 0
+        
+    if team_df.loc[index, 'takes_initiative_3'] >= 1 and team_df.loc[index, 'takes_initiative_3'] < 2:
+        team_df.loc[index, 'takes_initiative'] = 1
+
+    if team_df.loc[index, 'takes_initiative_3'] >= 2 and team_df.loc[index, 'takes_initiative_3'] < 3:
+        team_df.loc[index, 'takes_initiative'] = 2
+    
+    if team_df.loc[index, 'takes_initiative_3'] >= 3 and team_df.loc[index, 'takes_initiative_3'] < 4:
+        team_df.loc[index, 'takes_initiative'] = 3
+        
+    if team_df.loc[index, 'takes_initiative_3'] >= 4 and team_df.loc[index, 'takes_initiative_3'] < 5:
+        team_df.loc[index, 'takes_initiative'] = 4
+        
+    if team_df.loc[index, 'takes_initiative_3'] == 5:
+        team_df.loc[index, 'takes_initiative'] = 5
+```
+```python
+#Creating a loop to assign these values to the column encourage open discussions
+team_df['encourage_open_discussions']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'encourage_open_discussions_3'] >= 0 and team_df.loc[index, 'encourage_open_discussions_3'] < 1:
+        team_df.loc[index, 'encourage_open_discussions'] = 0
+        
+    if team_df.loc[index, 'encourage_open_discussions_3'] >= 1 and team_df.loc[index, 'encourage_open_discussions_3'] < 2:
+        team_df.loc[index, 'encourage_open_discussions'] = 1
+
+    if team_df.loc[index, 'encourage_open_discussions_3'] >= 2 and team_df.loc[index, 'encourage_open_discussions_3'] < 3:
+        team_df.loc[index, 'encourage_open_discussions'] = 2
+    
+    if team_df.loc[index, 'encourage_open_discussions_3'] >= 3 and team_df.loc[index, 'encourage_open_discussions_3'] < 4:
+        team_df.loc[index, 'encourage_open_discussions'] = 3
+        
+    if team_df.loc[index, 'encourage_open_discussions_3'] >= 4 and team_df.loc[index, 'encourage_open_discussions_3'] < 5:
+        team_df.loc[index, 'encourage_open_discussions'] = 4
+        
+    if team_df.loc[index, 'encourage_open_discussions_3'] == 5:
+        team_df.loc[index, 'encourage_open_discussions'] = 5
+```
+```python
+#Creating a loop to group age into a corresponding category
+team_df['age_group']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'age'] >= 21 and team_df.loc[index, 'age'] <= 29:
+        team_df.loc[index, 'age_group'] = 'twenties'
+        
+    if team_df.loc[index, 'age'] >= 30 and team_df.loc[index, 'age'] <= 39:
+        team_df.loc[index, 'age_group'] = 'thirties'
+
+    if team_df.loc[index, 'age'] >= 40 and team_df.loc[index, 'age'] <= 49:
+        team_df.loc[index, 'age_group'] = 'forties'
+```
+```python
+#Creating a list to clean the nationalities and have them in the same format
+group_nationalities = {"Indian" : "Indian",
+                       "China": "Chinese",
+                       "German": "German",
+                       "Mexican": "Mexican",
+                      "Peruvian": "Peruvian",
+                      "Taiwan": "Taiwanese",
+                      "American": "American",
+                      "Chinese": "Chinese",
+                      "USA" : "American",
+                      "Brazilian" : "Brazilian",
+                      "Norwegian" : "Norwegian",
+                      "Russian" : "Russian",
+                      "Colombian" : "Colombian",
+                      "Turkish" : "Turkish",
+                      "Nigerian" : "Nigerian",
+                      "Vietnamese" : "Vietnamese",
+                      "Republic of Korea" : "South Korean",
+                      "Indonesian" : "Indonesian",
+                      "Italian" : "Italian",
+                      "Thai": "Thai",
+                      "Russia" : "Russian",
+                      "indian" : "Indian",
+                      "Brazil" : "Brazilian",
+                      "British" : "British",
+                      "Mauritius" : "Mauritian",
+                      "chinese" : "Chinese",
+                      "colombian" : "Colombian",
+                      "German/American" : "Multi-ethnic",
+                      "Costarrican" : "Costarrican",
+                      "Nigeria" : "Nigerian",
+                      "Germany" : "German",
+                      "Japan" : "Japanese",
+                      "Czech" : "Czech",
+                      "mexican" : "Mexican",
+                      "canadian" : "Canadian",
+                      "Kenyan" : "Kenyan",
+                      "Ghanaian" : "Ghanaian",
+                      "Belgian " : "Belgian",
+                      "INDIAN" : "Indian",
+                      "Indonesia" : "Indonesian",
+                      "Philippines" : "Filipino",
+                      "Ecuador" : "Ecuadorian",
+                      "Ugandan" : "Ugandan",
+                      "Korea" : "South Korean",
+                      "Spain": "Spanish",
+                      "Canada" : "Canadian",
+                      "Italian and Spanish" : "Multi-ethnic",
+                      "South Korea" : "South Korean",
+                      "prefer not to answer" : "Prefer not to answer",
+                      "china": "Chinese",
+                      "peru": "Peruvian",
+                      "Swiss": "Swiss",
+                      "Portuguese" : "Portuguese",
+                      "Belarus": "Belarusians",
+                      "Ukrainian": "Ukrainian",
+                      "ecuador" : "Ecuadorian",
+                      "Dominican " : "Dominican",
+                      "Congolese" : "Congolese",
+                      "nigerian": "Nigerian",
+                      "Pakistani": "Pakistani",
+                      "Ecuadorian" : "Ecuadorian",
+                      "italian": "Italian",
+                      "Dominican" : "Dominican",
+                      "indian." : "Indian",
+                      "Venezuelan": "Venezuelan",
+                      "CHINA" : "Chinese",
+                      "British, Indian" : "Multi-ethnic",
+                      "Kyrgyz" : "Kyrgyz",
+                      "Spanish" : "Spanish",
+                      "Panama" : "Panamanians",
+                      "Colombia" : "Colombian",
+                      "Filipino " : "Filipino",
+                      "Congolese (DR CONGO)" : "Congolese",
+                      "Czech Republic" : "Czech",
+                      "Peru" : "Peruvian"}
+
+#Assigning the names to the nationality column 
+team_df['nationality'].replace(group_nationalities, inplace = True)
+
+team_df['nationality'].value_counts()
+```
+```python
+#Creating a list to group the nationalities into different countries
+mapping = {"Indian": "Asia", 
+           "Chinese": "Asia", 
+           "Taiwanese": "Asia",
+       "Vietnamese": "Asia",
+           "South Korean": "Asia",
+           "Indonesian": "Asia",
+       "Thai": "Asia",
+           "Japanese": "Asia",
+           "Pakistani": "Asia",
+           "Kyrgyz": "Asia", 
+           "Filipino": "Asia",
+           "Filipino1": "Asia",
+           "Mauritian" : "Africa", 
+           "Nigerian": "Africa", 
+           "Kenyan": "Africa", 
+           "Ghanaian": "Africa", 
+           "Congolese": "Africa", 
+           "Ugandan": "Africa",
+           "Mexican": "North_America", 
+           "American": "North_America", 
+           "Canadian": "North_America",
+           "Dominican": "North_America", 
+           "Costarrican": "North_America", 
+           "Panamanians": "North_America",
+           "Dominican1": "North_America",
+           "Peruvian": "South_America", 
+           "Brazilian": "South_America",
+           "Colombian": "South_America", 
+           "Ecuadorian": "South_America", 
+           "Venezuelan": "South_America",
+           "German": "Europe", 
+           "Norwegian": "Europe",
+           "Russian": "Europe",
+           "Turkish": "Europe",
+           "Italian": "Europe",
+           "British": "Europe", 
+           "Czech": "Europe", 
+           "Belgian": "Europe", 
+           "Portuguese": "Europe",
+           "Spanish": "Europe", 
+           "Swiss": "Europe", 
+           "Belarusians": "Europe",
+           "Ukrainian": "Europe",
+           "Multi-ethnic": "Others", 
+           "Prefer not to answer": "Others"}
+
+#Assigning the nationalities to the new column created
+team_df['country_mapped'] = team_df.nationality.map(mapping)
+```
+```python
+#Creating new variables by making a comparison of people that can switch laptop model
+team_df['change_laptop']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Macbook' :
+        team_df.loc[index, 'change_laptop'] = 'no_change'
+    
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Windows laptop' :
+        team_df.loc[index, 'change_laptop'] = 'change_of_laptop'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Chromebook' :
+        team_df.loc[index, 'change_laptop'] = 'change_of_laptop'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Windows laptop' :
+        team_df.loc[index, 'change_laptop'] = 'no_change'
+    
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Macbook':
+        team_df.loc[index, 'change_laptop'] = 'change_of_laptop'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Chromebook' :
+        team_df.loc[index, 'change_laptop'] = 'change_of_laptop'
+```
+```python
+#Creating a new variable to see Apples loyalty customers
+team_df['apple_target']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Macbook' :
+        team_df.loc[index, 'apple_target'] = 'customer_genuine'
+    
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Windows laptop' :
+        team_df.loc[index, 'apple_target'] = 'customer_loss'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Macbook' and team_df.loc[index, 'next_laptop'] == 'Chromebook' :
+        team_df.loc[index, 'apple_target'] = 'customer_loss'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Windows laptop' :
+        team_df.loc[index, 'apple_target'] = 'target_customer'
+    
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Macbook':
+        team_df.loc[index, 'apple_target'] = 'customer_gain'
+        
+    if team_df.loc[index, 'current_laptop'] == 'Windows laptop' and team_df.loc[index, 'next_laptop'] == 'Chromebook' :
+        team_df.loc[index, 'apple_target'] = 'target_customer'
+```
+```python
+#Creating a new variable to compare the change of laptop and gender
+team_df['change_gender']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'gender'] == 'Male' :
+        team_df.loc[index, 'change_gender'] = 1
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'gender'] == 'Female' :
+        team_df.loc[index, 'change_gender'] = 2
+    
+    if team_df.loc[index, 'change_laptop'] == 'no_change':
+        team_df.loc[index, 'change_gender'] = 0
+```
+```python
+#Creating a new variable to compare the change of laptop and age
+team_df['change_age']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'age_group'] == 'twenties' :
+        team_df.loc[index, 'change_age'] = 1
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'age_group'] == 'thirties' :
+        team_df.loc[index, 'change_age'] = 2
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'age_group'] == 'forties' :
+        team_df.loc[index, 'change_age'] = 3
+    
+    if team_df.loc[index, 'change_laptop'] == 'no_change':
+        team_df.loc[index, 'change_age'] = 0
+```
+```python
+#Creating a new variable to compare the change of laptop and the program
+team_df['change_degree']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MIB & Business Analytics)' :
+        team_df.loc[index, 'change_degree'] = 1
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'One year Business Analytics' :
+        team_df.loc[index, 'change_degree'] = 2
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MBA & Business Analytics)':
+        team_df.loc[index, 'change_degree'] = 3
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MBA & Disruptive innovation)':
+        team_df.loc[index, 'change_degree'] = 4
+        
+    if team_df.loc[index, 'change_laptop'] == 'no_change':
+        team_df.loc[index, 'change_degree'] = 0
+ ```
+ **Dropping columns not required**
+ ```python
+ #Creating a new variable to compare the change of laptop and the program
+team_df['change_degree']   = 0
+
+for index, value in team_df.iterrows():
+    
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MIB & Business Analytics)' :
+        team_df.loc[index, 'change_degree'] = 1
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'One year Business Analytics' :
+        team_df.loc[index, 'change_degree'] = 2
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MBA & Business Analytics)':
+        team_df.loc[index, 'change_degree'] = 3
+    
+    if team_df.loc[index, 'change_laptop'] == 'change_of_laptop' and team_df.loc[index, 'program'] == 'DD (MBA & Disruptive innovation)':
+        team_df.loc[index, 'change_degree'] = 4
+        
+    if team_df.loc[index, 'change_laptop'] == 'no_change':
+        team_df.loc[index, 'change_degree'] = 0
+```
+```python
+#lowering case of the column names
+team_df.columns = map(str.lower, team_df.columns)
+
+# checking information about each column
+team_df.head(5)
+```
+        
