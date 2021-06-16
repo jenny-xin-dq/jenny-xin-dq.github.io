@@ -713,5 +713,4 @@ sns.heatmap(df_corr,
             square = True,
             annot = True)
 ```
-
-![CorrelationHeatmap](/images/CorrlationHeatmap.png)
+![CorrelationHeatmap](/images/CorrelationHeatmap.png)
