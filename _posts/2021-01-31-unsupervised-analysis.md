@@ -1176,7 +1176,7 @@ plt.show()
 # calling the inertia_plot() function
 interia_plot(data = X_big5_scaled)
 ```
-![inertia_plot](/images/inertia_plot.png)
+![Inertia_Plot](/images/Inertia_Plot.png)
 
 ```python
 # INSTANTIATING a k-Means object with clusters
@@ -1190,13 +1190,78 @@ big5_k_pca.fit(X_big5_scaled)
 
 # converting the clusters to a DataFrame
 big5_kmeans_pca = pd.DataFrame({'Cluster': big5_k_pca.labels_})
+```
+```python
+# storing cluster centers 5p
+centroids_pca_big5 = big5_k_pca.cluster_centers_
 
+
+# converting cluster centers into a DataFrame
+centroids_pca_df_big5 = pd.DataFrame(centroids_pca_big5)
+
+
+# renaming principal components
+centroids_pca_df_big5.columns = ['Wolves of Wall Street',                 # No Vegan, No Vege, No Indian
+                      'Artists',          # No Med, No ME, No Wine
+                      'Party Animals']
+
+
+# checking results (clusters = rows, pc = columns)
+centroids_pca_df_big5.round(2)
+```
+![centroids_pca_df_big5](/images/centroids_pca_df_big5.png)
+
+```python
+# concatenating cluster memberships with principal components 5p
+clst_pca_df_big5 = pd.concat([big5_kmeans_pca,
+                         X_big5_scaled],
+                         axis = 1)
+
+
+# checking results
+#clst_pca_df_5p
+
+
+# concatenating demographic information with pca-clusters
+final_pca_clust_df_big5 = pd.concat([team_df.loc[ : , ['current_laptop','next_laptop','apple_target',
+                            'program','gender', 'nationality', 'ethnicity','change_laptop','country_mapped','age_group']],
+                                clst_pca_df_big5],
+                                axis = 1)
 
 # checking the results
-print(big5_kmeans_pca.iloc[: , 0].value_counts())
+#final_pca_clust_df_big5.head(n = 10)
 ```
-2    58
-1    43
-0    36
-Name: Cluster, dtype: int64
+##Clustering Hult DNA
+```python
+# INSTANTIATING a StandardScaler() object
+scaler = StandardScaler()
 
+
+# FITTING the scaler with the data
+scaler.fit(X_hult_df)
+
+
+# TRANSFORMING our data after fit
+X_hult_scaled_pca = scaler.transform(X_hult_df)
+
+
+# converting scaled data into a DataFrame
+X_hult_scaled = pd.DataFrame(X_hult_scaled_pca)
+
+
+# reattaching column names
+X_hult_scaled.columns = ['Undeveloped','Geek'] # Med, No Wine
+
+
+# checking pre- and post-scaling variance
+print(pd.np.var(X_hult_df), '\n\n')
+print(pd.np.var(X_hult_scaled))
+```
+Undeveloped    2.275499
+Geek           0.365870
+dtype: float64 
+
+
+Undeveloped    1.0
+Geek           1.0
+dtype: float64
