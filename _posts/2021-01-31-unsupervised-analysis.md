@@ -1,10 +1,10 @@
 ---
 title: "Unsupervised Analysis Project"
 date: 2021-01-31
-tags: [machine learning, unsupervised analysis, data science]
+tags: [Machine Learning, Unsupervised Analysis, Data Science]
 header:
   image: "/images/SF-golden-gate.jpeg"
-excerpt: "machine learning, unsupervised analysis, data science"
+excerpt: "Machine Learning, Unsupervised Analysis, Data Science"
 mathjax: "true"
 ---
 
@@ -23,7 +23,7 @@ us understand the motives, actions, emotions and cognition of an individual. We 
 demographics gathered while reviewing the data collection. The psychographics of consumers are 
 effectively known. The survey used Big 5 as well as Hult DNA, to determine the behavior.
 
-###Big 5
+**Big 5**
 The Big 5 Personality, also called OCEAN, allows us to understand the degree to which customers use:
 1. Openness
 2. Conscientousness
@@ -32,7 +32,7 @@ The Big 5 Personality, also called OCEAN, allows us to understand the degree to 
 5. Neuroticism
 This will help us understand the behaviour of the student.
 
-###Hult DNA
+**Hult DNA**
 For a student to be employable in graduation, nine years of study at the Hult facilities have 
 resulted in a must-do approach. Within its students Hult frequently absorbs them.The Hult DNA 
 consists of 3 broad categories and 3 subcategories within each category, namely:
@@ -714,3 +714,208 @@ sns.heatmap(df_corr,
             annot = True)
 ```
 ![CorrelationHeatmap](/images/CorrelationHeatmap.png)
+
+The correlation matrix show that we have variance between our groups since none of our groups show a correlation or 0.5 or more.
+
+```python
+# INSTANTIATING a PCA object with no limit to principal components
+pca = PCA(n_components = None,
+          random_state = 802)
+
+
+# FITTING and TRANSFORMING the scaled data
+big5_pca = pca.fit_transform(big5_scaled)
+
+
+# comparing dimensions of each DataFrame
+print("Original shape:",  big5_scaled.shape)
+print("PCA shape     :",  big5_pca.shape)
+```
+Original shape: (137, 5)
+PCA shape     : (137, 5)
+
+```python
+#Checking the variance between components
+# component number counter
+component_number = 0
+
+
+# looping over each principal component
+for variance in pca.explained_variance_ratio_:
+    component_number += 1
+    print(f"PC {component_number} : {variance.round(3)}")
+```
+PC 1 : 0.366
+PC 2 : 0.222
+PC 3 : 0.18
+PC 4 : 0.124
+PC 5 : 0.108
+
+```python
+# printing the sum of all explained variance ratios
+
+print(pca.explained_variance_ratio_.sum())
+```
+1.0
+
+##Big5 PCA Model
+```python
+#User defined function
+########################################
+# scree_plot
+########################################
+def scree_plot(pca_object, export = False):
+    # building a scree plot
+
+    # setting plot size
+    fig, ax = plt.subplots(figsize=(10, 8))
+    features = range(pca_object.n_components_)
+
+
+    # developing a scree plot
+    plt.plot(features,
+             pca_object.explained_variance_ratio_,
+             linewidth = 2,
+             marker = 'o',
+             markersize = 10,
+             markeredgecolor = 'black',
+             markerfacecolor = 'grey')
+
+
+    # setting more plot options
+    plt.title('Scree Plot')
+    plt.xlabel('PCA feature')
+    plt.ylabel('Explained Variance')
+    plt.xticks(features)
+
+        
+    # displaying the plot
+    plt.show()
+```
+```python
+#Creating a PCA plot to check the components
+pca = PCA(n_components = None,
+          random_state = 802)
+
+
+# fitting and transforming the scaled data #
+big5_pca = pca.fit_transform(big5_scaled)
+
+
+# calling the scree_plot function
+scree_plot(pca_object = pca)
+```
+![PCA1](/images/PCA1.png)
+The elbow breaks at feature 2 so this means that we will have 3 components.
+
+```python
+#Creating a new PCA plot only with the optimal components
+pca_3 = PCA(n_components = 3,
+          random_state = 802)
+
+
+# fitting and transforming the scaled data #
+big5_pca_3 = pca_3.fit_transform(big5_scaled)
+
+
+# calling the scree_plot function
+scree_plot(pca_object = pca_3)
+```
+![PCA2](/images/PCA2.png)
+
+```python
+# transposing pca components
+factor_loadings_df = pd.DataFrame(pd.np.transpose(pca.components_))
+
+
+# naming rows as original features
+factor_loadings_df = factor_loadings_df.set_index(big5_scaled.columns)
+
+
+# checking the result
+print(factor_loadings_df)
+```
+                          0         1         2         3         4
+Extraversion      -0.361221  0.300114  0.815688  0.108408 -0.319925
+Agreeableness     -0.547304  0.113695 -0.192441 -0.805590 -0.039022
+Conscientiousness -0.501491 -0.361670 -0.364976  0.404293 -0.566606
+Neuroticism        0.305788  0.725207 -0.334629 -0.000356 -0.518258
+Openness          -0.474319  0.490178 -0.228989  0.419308  0.553617
+
+```python
+# transposing pca components (pc = MAX)
+factor_loadings = pd.DataFrame(pd.np.transpose(pca.components_))
+
+
+# naming rows as original features
+factor_loadings = factor_loadings.set_index(big5_scaled.columns)
+
+
+### 3 component PCA model ###
+
+# transposing pca components (pc = 3)
+factor_loadings_3 = pd.DataFrame(pd.np.transpose(pca_3.components_))
+
+
+# naming rows as original features
+factor_loadings_3 = factor_loadings_3.set_index(big5_scaled.columns)
+
+
+# checking the results
+print(f"""
+MAX Components Factor Loadings
+------------------------------
+{factor_loadings.round(2)}
+
+
+3 Components Factor Loadings
+------------------------------
+{factor_loadings_3.round(2)}
+""")
+```
+MAX Components Factor Loadings
+------------------------------
+                      0     1     2     3     4
+Extraversion      -0.36  0.30  0.82  0.11 -0.32
+Agreeableness     -0.55  0.11 -0.19 -0.81 -0.04
+Conscientiousness -0.50 -0.36 -0.36  0.40 -0.57
+Neuroticism        0.31  0.73 -0.33 -0.00 -0.52
+Openness          -0.47  0.49 -0.23  0.42  0.55
+
+
+3 Components Factor Loadings
+------------------------------
+                      0     1     2
+Extraversion      -0.36  0.30  0.82
+Agreeableness     -0.55  0.11 -0.19
+Conscientiousness -0.50 -0.36 -0.36
+Neuroticism        0.31  0.73 -0.33
+Openness          -0.47  0.49 -0.23
+
+```python
+# naming each principal component
+factor_loadings_3.columns = ['Wolves of Wall Street',      
+                              'Artists',          
+                              'Party Animals' ]
+        
+
+
+# checking the result
+factor_loadings_3
+```
+![Factor_Loadings_3](/images/Factor_Loadings_3)
+
+```python
+X_big5_reduced = pca_3.transform(big5_scaled)
+
+# converting to a DataFrame
+X_big5_df = pd.DataFrame(X_big5_reduced)
+
+# Naming the columns #
+X_big5_df.columns = ['Wolves of Wall Street',      
+                              'Artists',          
+                              'Party Animals']
+# checking the results
+X_big5_df
+```
+![X_big5_df](/images/X_big5_df)
