@@ -867,43 +867,19 @@ MAX Components Factor Loadings
 ------------------------------
 {factor_loadings.round(2)}
 
-
-3 Components Factor Loadings
-------------------------------
-{factor_loadings_3.round(2)}
 """)
 ```
-MAX Components Factor Loadings
-------------------------------
-                      0     1     2     3     4
-Extraversion      -0.36  0.30  0.82  0.11 -0.32
-Agreeableness     -0.55  0.11 -0.19 -0.81 -0.04
-Conscientiousness -0.50 -0.36 -0.36  0.40 -0.57
-Neuroticism        0.31  0.73 -0.33 -0.00 -0.52
-Openness          -0.47  0.49 -0.23  0.42  0.55
-
-
-3 Components Factor Loadings
-------------------------------
-                      0     1     2
-Extraversion      -0.36  0.30  0.82
-Agreeableness     -0.55  0.11 -0.19
-Conscientiousness -0.50 -0.36 -0.36
-Neuroticism        0.31  0.73 -0.33
-Openness          -0.47  0.49 -0.23
+![Factor_Loadings](/images/Factor_Loadings.png)
 
 ```python
 # naming each principal component
 factor_loadings_3.columns = ['Wolves of Wall Street',      
                               'Artists',          
                               'Party Animals' ]
-        
-
-
 # checking the result
 factor_loadings_3
 ```
-![Factor_Loadings_3](/images/Factor_Loadings_3)
+![Factor_Loadings_3](/images/Factor_Loadings_3.png)
 
 ```python
 X_big5_reduced = pca_3.transform(big5_scaled)
@@ -918,4 +894,4 @@ X_big5_df.columns = ['Wolves of Wall Street',
 # checking the results
 X_big5_df
 ```
-![X_big5_df](/images/X_big5_df)
+![X_big5_df](/images/X_big5_df.png)
