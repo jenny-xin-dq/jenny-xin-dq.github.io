@@ -568,4 +568,150 @@ team_df.columns = map(str.lower, team_df.columns)
 # checking information about each column
 team_df.head(5)
 ```
-        
+##BIg5 Dataset
+We start subsetting the dataset to first analyze the columns that correspond to the Big 5
+```python
+#Subsetting the data only taking into consideration the variables used for the analysis of the big 5
+df_big5 = team_df.drop(['survey_id_num', 'current_laptop','next_laptop',
+                            'program','gender', 'nationality', 'ethnicity','age_group',
+                            'respond_effectively','takes_initiative','encourage_open_discussions',
+                            'answers_complex_situations','dont_create_new_ideas','self_awareness',
+                            'growth_mindset','listen_others','dont_sell_idea','build_coop_rel',
+                            'work_diverse_cult','effect_negotiate','cant_rally','translate_ideas_to_plans',
+                            'resolve_conflicts','seek_use_feedback','coach_for_perf_growth','drive_for_results',
+                           'change_laptop','change_degree','change_age','change_gender','apple_target','country_mapped'],
+                             axis = 1)
+```
+```python
+#Creating a list of variables that need to be inverted
+big5_inverted = ['uninterested_abstract_ideas',
+'bad_imagination',
+'leave_belong_around',
+'make_mess',
+'forget_to_place_back_inorder',
+'shrik_my_duties',
+'do_not_talk',
+'keep_background',
+'have_little_to_say',
+'reticent_person',
+'quiet_with_strangers',
+'not_intrested_in_others',
+'insult_people',
+'uncurious_about_people_problems',
+'concern_others']
+#Inverting the numbers for the variables in the list
+big5_df = df_big5.copy()
+for col in big5_inverted:
+    for i, cols in big5_df.iterrows():
+        if big5_df.loc[i,col] == 1:
+            big5_df.loc[i,col] = 5
+        elif big5_df.loc[i,col] == 2:
+            big5_df.loc[i,col] = 4
+        elif big5_df.loc[i,col] == 4:
+            big5_df.loc[i,col] = 2
+        elif big5_df.loc[i,col] == 5:
+            big5_df.loc[i,col] = 1
+```
+```python
+#Grouping the columns that represent the extraversion behavior
+extraversion_questions = ['life_of_party','do_not_talk','conf_with_people','keep_background','start_conversations',
+'have_little_to_say','social_at_parties','reticent_person','center_of_attention',
+'quiet_with_strangers']
+big5_df['Extraversion'] = 0
+for i in extraversion_questions:
+    big5_df['Extraversion'] = big5_df['Extraversion'] + big5_df.loc[:,i]
+#Grouping the columns that represent the agreeableness behavior
+agreeableness_questions = ['concern_others','int_people','insult_people','symp_others','uncurious_about_people_problems',
+'soft_hearted','not_intrested_in_others','gives_time_for_others','feel_others_emotions',
+'make_people_feel_ease']
+big5_df['Agreeableness'] = 0
+for i in agreeableness_questions:
+    big5_df['Agreeableness'] = big5_df['Agreeableness'] + big5_df.loc[:,i]
+#Grouping the columns that represent the conscientiousness behavior
+conscientiousness_questions = ['always_prepared','leave_belong_around','attention_details','make_mess', 
+'chores_done_right_away','forget_to_place_back_inorder', 'like_order','shrik_my_duties',
+'follows_schedule','exact_in_work']
+big5_df['Conscientiousness'] = 0
+for i in conscientiousness_questions:
+    big5_df['Conscientiousness'] = big5_df['Conscientiousness'] + big5_df.loc[:,i]
+#Grouping the columns that represent the neuroticism behavior    
+neuroticism_questions = ['stressed_easily','relax_most_time','worry_things','seldon_feel_blue','easily_disturbed',
+'get_upset_easily','frequent_mood_change','frequent_mood_swings','mad_easily',
+'often_feel_blue']
+big5_df['Neuroticism'] = 0
+for i in neuroticism_questions:
+    big5_df['Neuroticism'] = big5_df['Neuroticism'] + big5_df.loc[:,i]
+#Grouping the columns that represent the openness behavior    
+openness_questions = ['rich_vocabulary','diff_und_abstract','vivind_immag','uninterested_abstract_ideas',
+'have_excellent_ideas', 'bad_imagination','fast_learner','use_difficult_words',
+'spend_time_reflecting','full_of_ideas']
+big5_df['Openness'] = 0
+for i in openness_questions:
+    big5_df['Openness'] = big5_df['Openness'] + big5_df.loc[:,i]
+
+# Creating new dataset 
+big5_df = big5_df[['Extraversion',
+                               'Agreeableness',
+                               'Conscientiousness',
+                               'Neuroticism',
+                               'Openness']]
+```
+**Big5 Scaling**
+```python
+# INSTANTIATING a StandardScaler() object
+scaler = StandardScaler()
+
+
+# FITTING the scaler with the data
+scaler.fit(big5_df)
+
+
+# TRANSFORMING our data after fit
+X_scaled = scaler.transform(big5_df)
+
+
+# converting scaled data into a DataFrame
+big5_scaled = pd.DataFrame(X_scaled)
+
+
+# reattaching column names
+big5_scaled.columns = big5_df.columns
+
+
+# checking pre- and post-scaling variance
+print(pd.np.var(big5_df),'\n\n')
+print(pd.np.var(big5_scaled))
+```
+Extraversion         43.033300
+Agreeableness        31.442059
+Conscientiousness    30.336619
+Neuroticism          35.998082
+Openness             19.426821
+dtype: float64 
+
+
+Extraversion         1.0
+Agreeableness        1.0
+Conscientiousness    1.0
+Neuroticism          1.0
+Openness             1.0
+dtype: float64
+
+```python
+#Creating a correlation matrix to check if we have enough variance in our dataset to be able to continue with the analysis
+# setting plot size
+fig, ax = plt.subplots(figsize = (8, 8))
+
+
+# developing a correlation matrix object
+df_corr = big5_scaled.corr(method = 'pearson').round(2)
+
+
+# creating a correlation heatmap
+sns.heatmap(df_corr,
+            cmap = 'coolwarm',
+            square = True,
+            annot = True)
+```
+
+![CorrelationHeatmap](/images/CorrlationHeatmap.png)
