@@ -1265,3 +1265,51 @@ dtype: float64
 Undeveloped    1.0
 Geek           1.0
 dtype: float64
+
+```python
+# grouping data based on Ward distance for 5p
+standard_mergings_ward = linkage(y = X_hult_scaled,
+                                 method = 'ward',
+                                 optimal_ordering = True)
+
+
+# setting plot size
+fig, ax = plt.subplots(figsize=(12, 12))
+
+# developing a dendrogram
+dendrogram(Z = standard_mergings_ward,
+           leaf_rotation = 90,
+           leaf_font_size = 6)
+
+
+# displaying the plot
+plt.show()
+```
+![dendrogram2](/images/dendrogram2.png)
+
+```python
+# calling the inertia_plot() function
+interia_plot(data = X_hult_scaled)
+```
+![inertia_plot2](/images/inertia_plot2.png)
+
+```python
+# INSTANTIATING a k-Means object with clusters
+hult_k_pca = KMeans(n_clusters   = 3,
+                         random_state = 219)
+
+
+# fitting the object to the data
+hult_k_pca.fit(X_hult_scaled)
+
+
+# converting the clusters to a DataFrame
+hult_kmeans_pca = pd.DataFrame({'Cluster': hult_k_pca.labels_})
+
+
+# checking the results
+print(hult_kmeans_pca.iloc[: , 0].value_counts())
+```
+1    53
+0    43
+2    41
