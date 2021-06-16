@@ -895,3 +895,308 @@ X_big5_df.columns = ['Wolves of Wall Street',
 X_big5_df
 ```
 ![X_big5_df](/images/X_big5_df.png)
+
+#Hult DNA
+We repeat the same process for the Hult DNA traits.
+```python
+#Creating a subset for the Hult DNA analysis 
+df_hult_dna = team_df.drop(['survey_id_num', 'current_laptop','next_laptop',
+                            'program','gender', 'nationality', 'ethnicity',
+                     'life_of_party','concern_others','always_prepared','stressed_easily','rich_vocabulary',
+                     'do_not_talk','int_people','leave_belong_around','relax_most_time','diff_und_abstract',
+                     'conf_with_people','insult_people','attention_details','worry_things','vivind_immag',
+                     'keep_background','symp_others','make_mess','seldon_feel_blue','uninterested_abstract_ideas',
+                     'start_conversations','uncurious_about_people_problems','chores_done_right_away','easily_disturbed',
+                     'have_excellent_ideas','have_little_to_say','soft_hearted','forget_to_place_back_inorder',
+                     'get_upset_easily','bad_imagination','social_at_parties','not_intrested_in_others',
+                     'like_order','frequent_mood_change','fast_learner','reticent_person','gives_time_for_others',
+                     'shrik_my_duties','frequent_mood_swings','center_of_attention',
+                      'feel_others_emotions','follows_schedule','mad_easily','spend_time_reflecting','quiet_with_strangers',
+                     'make_people_feel_ease','exact_in_work','often_feel_blue','full_of_ideas','use_difficult_words','age_group',
+                    'change_laptop','change_degree','change_age','change_gender','apple_target','country_mapped'    ],
+                             axis = 1)
+```
+```python
+#Creating a list of variables that need to be inverted
+hult_dna_inverted = ['dont_create_new_ideas',
+'dont_sell_idea',
+'cant_rally']
+#Invert the number of some of the columns to match the description
+hult_dna_df = df_hult_dna.copy()
+for col in hult_dna_inverted:
+    for i, cols in hult_dna_df.iterrows():
+        if hult_dna_df.loc[i,col] == 1:
+            hult_dna_df.loc[i,col] = 5
+        elif hult_dna_df.loc[i,col] == 2:
+            hult_dna_df.loc[i,col] = 4
+        elif hult_dna_df.loc[i,col] == 4:
+            hult_dna_df.loc[i,col] = 2
+        elif hult_dna_df.loc[i,col] == 5:
+            hult_dna_df.loc[i,col] = 1
+```
+```python
+#Grouping the columns that represent the thinking behavior
+thinking_questions = ['answers_complex_situations','dont_create_new_ideas','self_awareness','growth_mindset',
+'respond_effectively','takes_initiative']
+hult_dna_df['Thinking'] = 0
+for i in thinking_questions:
+    hult_dna_df['Thinking'] = hult_dna_df['Thinking'] + hult_dna_df.loc[:,i]
+#Grouping the columns that represent the communicating behavior
+communicating_questions = ['encourage_open_discussions','listen_others','effect_negotiate','dont_sell_idea','build_coop_rel',
+'work_diverse_cult']
+hult_dna_df['Communicating'] = 0
+for i in communicating_questions:
+    hult_dna_df['Communicating'] = hult_dna_df['Communicating'] + hult_dna_df.loc[:,i]
+#Grouping the columns that represent the team building behavior
+team_building_questions = ['cant_rally','translate_ideas_to_plans',
+'resolve_conflicts','seek_use_feedback','coach_for_perf_growth','drive_for_results']
+hult_dna_df['Team_building'] = 0
+for i in team_building_questions:
+    hult_dna_df['Team_building'] = hult_dna_df['Team_building'] + hult_dna_df.loc[:,i]
+    
+
+# Creating new dataset
+hult_dna_df = hult_dna_df[['Thinking',
+                                       'Communicating',
+                                       'Team_building']]
+```
+**Hult DNA Scaling**
+```python
+# INSTANTIATING a StandardScaler() object
+scaler = StandardScaler()
+
+
+# FITTING the scaler with the data
+scaler.fit(hult_dna_df)
+
+
+# TRANSFORMING our data after fit
+X_scaled = scaler.transform(hult_dna_df)
+
+
+# converting scaled data into a DataFrame
+hult_dna_scaled = pd.DataFrame(X_scaled)
+
+
+# reattaching column names
+hult_dna_scaled.columns = hult_dna_df.columns
+
+
+# checking pre- and post-scaling variance
+print(pd.np.var(hult_dna_df),'\n\n')
+print(pd.np.var(hult_dna_scaled))
+```
+Thinking         10.619532
+Communicating     8.760936
+Team_building     9.935639
+dtype: float64 
+
+
+Thinking         1.0
+Communicating    1.0
+Team_building    1.0
+dtype: float64
+
+```python
+#Creating a PCA plot to show the optimal components
+hult_2 = PCA(n_components = 2,
+          random_state = 802)
+
+
+# fitting and transforming the scaled data #
+hult_dna_2 = hult_2.fit_transform(hult_dna_scaled)
+
+
+# calling the scree_plot function
+scree_plot(pca_object = hult_2)
+```
+![Scree_Plot](/images/Scree_Plot.png)
+
+```python
+# transposing pca components
+factor_loadings_df = pd.DataFrame(pd.np.transpose(hult_2.components_))
+
+
+# naming rows as original features
+factor_loadings_df = factor_loadings_df.set_index(hult_dna_scaled.columns)
+
+
+# checking the result
+print(factor_loadings_df)
+```
+![Factor_Loadings_df](/images/Factor_Loadings_df.png)
+
+```python
+# analyzing factor strengths per customer
+X_hult_reduced = hult_2.transform(hult_dna_scaled)
+
+
+# converting to a DataFrame
+X_hult_df = pd.DataFrame(X_hult_reduced)
+
+# Naming the columns #
+X_hult_df.columns = ['Undeveloped',
+                     'Geek']
+# checking the results
+X_hult_df
+```
+![X_hult_df](/images/X_hult_df.png)
+
+```python
+#User defined function
+########################################
+# inertia
+########################################
+def interia_plot(data, max_clust = 50):
+    """
+PARAMETERS
+----------
+data      : DataFrame, data from which to build clusters. Dataset should be scaled
+max_clust : int, maximum of range for how many clusters to check interia, default 50
+    """
+
+    ks = range(1, max_clust)
+    inertias = []
+
+
+    for k in ks:
+        # INSTANTIATING a kmeans object
+        model = KMeans(n_clusters = k)
+
+
+        # FITTING to the data
+        model.fit(data)
+
+
+        # append each inertia to the list of inertias
+        inertias.append(model.inertia_)
+
+
+
+    # plotting ks vs inertias
+    fig, ax = plt.subplots(figsize = (12, 8))
+    plt.plot(ks, inertias, '-o')
+
+
+    # labeling and displaying the plot
+    plt.xlabel('number of clusters, k')
+    plt.ylabel('inertia')
+    plt.xticks(ks)
+    plt.show()
+
+
+########################################
+# scree_plot
+########################################
+def scree_plot(pca_object, export = False):
+    # building a scree plot
+
+    # setting plot size
+    fig, ax = plt.subplots(figsize=(10, 8))
+    features = range(pca_object.n_components_)
+
+
+    # developing a scree plot
+    plt.plot(features,
+             pca_object.explained_variance_ratio_,
+             linewidth = 2,
+             marker = 'o',
+             markersize = 10,
+             markeredgecolor = 'black',
+             markerfacecolor = 'grey')
+
+
+    # setting more plot options
+    plt.title('Scree Plot')
+    plt.xlabel('PCA feature')
+    plt.ylabel('Explained Variance')
+    plt.xticks(features)
+```
+##Clustering Big5
+```python
+# INSTANTIATING a StandardScaler() object
+scaler = StandardScaler()
+
+
+# FITTING the scaler with the data
+scaler.fit(X_big5_df)
+
+
+# TRANSFORMING our data after fit
+X_big5_scaled_pca = scaler.transform(X_big5_df)
+
+
+# converting scaled data into a DataFrame
+X_big5_scaled = pd.DataFrame(X_big5_scaled_pca)
+
+
+# reattaching column names
+X_big5_scaled.columns = ['Wolves of Wall Street',                 # No Vegan, No Vege, No Indian
+                      'Artists',          # No Med, No ME, No Wine
+                      'Party Animals'] # Med, No Wine
+
+
+# checking pre- and post-scaling variance
+print(pd.np.var(X_big5_df), '\n\n')
+print(pd.np.var(X_big5_scaled))
+```
+Wolves of Wall Street    1.829398
+Artists                  1.108742
+Party Animals            0.900072
+dtype: float64 
+
+
+Wolves of Wall Street    1.0
+Artists                  1.0
+Party Animals            1.0
+dtype: float64
+
+```python
+# grouping data based on Ward distance for 5p
+standard_mergings_ward = linkage(y = X_big5_scaled,
+                                 method = 'ward',
+                                 optimal_ordering = True)
+
+
+# setting plot size
+fig, ax = plt.subplots(figsize=(12, 12))
+
+# developing a dendrogram
+dendrogram(Z = standard_mergings_ward,
+           leaf_rotation = 90,
+           leaf_font_size = 6)
+
+
+# displaying the plot
+plt.show()
+```
+![dendrogram](/images/dendrogram.png)
+
+```python
+# calling the inertia_plot() function
+interia_plot(data = X_big5_scaled)
+```
+![inertia_plot](/images/inertia_plot.png)
+
+```python
+# INSTANTIATING a k-Means object with clusters
+big5_k_pca = KMeans(n_clusters   = 3,
+                         random_state = 219)
+
+
+# fitting the object to the data
+big5_k_pca.fit(X_big5_scaled)
+
+
+# converting the clusters to a DataFrame
+big5_kmeans_pca = pd.DataFrame({'Cluster': big5_k_pca.labels_})
+
+
+# checking the results
+print(big5_kmeans_pca.iloc[: , 0].value_counts())
+```
+2    58
+1    43
+0    36
+Name: Cluster, dtype: int64
+
