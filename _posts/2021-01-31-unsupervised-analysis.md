@@ -1314,10 +1314,10 @@ print(hult_kmeans_pca.iloc[: , 0].value_counts())
 0    43
 2    41
 
-#Analysis Results
+## Analysis Results
 Currently the population of our survey is evenly split between MacBook (50.4%) and Windows (49.6%). However, the population is changing its preferences. Potential MacBook users are growing 5.8% and Windows users are shrinking 8.7%. This indicates a loss of interest in Windows laptops given the same price. Based on our analysis and clustering we can provide the following insights:
 
-#Main Insights
+## Main Insights
 **Insight #1**
 Artistic people in cluster zero strongly prefer MacBook over Windows. They also reported a strong interest in keeping a MacBook as their next laptop. In grouping cluster zero based on nationality, gender, age and program for further analysis we discovered that people are mostly men originally from North America between 21 and 29 years old and pursuing a one year business analytics program.
 
@@ -1340,10 +1340,10 @@ We noticed a consumer loss from the Underdeveloped group. This group of people a
 Recommendation
 To support those students and to make them stay loyal with Apple, the company should offer a one year guarantee on their products providing full coverage in all of the students Apple products. One thing that is very common from the Apple products is that the screen from the Iphone keeps breaking. Apple should think about expanding their customer support and adding a screen repair or replacement. As well as, allowing to trade every Apple product for discounts when buying a Macbook, not necessarily trade another Macbook but also being able to trade your Iphone or Ipad for discounts on the next purchase for a Macbook.To support those students and to make them stay loyal with Apple, the company should offer a one year guarantee on their products providing full coverage in all of the students Apple products. One thing that is very common from the Apple products is that the screen from the Iphone keeps breaking. Apple should think about expanding their customer support and adding a screen repair or replacement. As well as, allowing to trade every Apple product for discounts when buying a Macbook, not necessarily trade another Macbook but also being able to trade your Iphone or Ipad for discounts on the next purchase for a Macbook.
 
-#Overall Conclusion
+## Overall Conclusion
 Apple is a company that when having one of their products you do not want to buy any other brand. Regarding this situation, the analysis was based primarily on business analytics students that need a programming computer or a software that allows them to work properly. Even with that, Apple can be compatible with many softwares and it is very user friendly. If Apple wants to increase their sales of Macbooks, they will want to follow our previous recommendations because they are based on different behaviors so each recommendation fits the different types of people. An overall recommendation for Apple is that they have a range of multiple products that they can use on their favor, creating packages, discounts, offering another free product is always been a way to attract people to buy a product.
 
-#Sources
+## Sources
 Crowe Associates. (2019, August 15). The “big 5” Personality traits | Crowe Associates. Crowe Associates | Committed to People Development. Retrieved from http://www.crowe-associates.co.uk/coaching-tools/the-big-5-personality-traits/
 
 Hult DNA Development Guide (2016). Retrieved from https://www.coursehero.com/file/45126181/Hult-DNA-Development-Guide-2016-17pdf/
