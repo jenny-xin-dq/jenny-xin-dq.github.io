@@ -26,7 +26,11 @@ be presented at the end of the report.
 ### Token Frequency Histogram and Word Cloud
 Following the steps of tokenization, grouping, counting frequencies and removing stop-words,
 we are able to generate token frequency histograms to see which words appear the most in the
-corresponding reviews. Comparing most relevant reviews of Amazon Echo Show and Google
+corresponding reviews. 
+
+![Most Relevant Reviews](/images/Most Relevant Reviews.png)
+
+Comparing most relevant reviews of Amazon Echo Show and Google
 Nest Hub Max, we can see that
 1. Amazon Echo Show buyers are more passionate towards the product by using the word
 “love” much more frequently than Google Nest Hub Max users
@@ -40,11 +44,16 @@ frequency more directly. From the word cloud generated for the lowest rating rev
 discover that Amazon Echo Show buyers mentioned more on the device’s “screen”, while it is
 not a problem for Google Nest Hub Max buyers.
 
+![Lowest Rating Reviews](/images/Lowest Rating Reviews.png)
+
 ### Word Cloud with Sentiment
 In order to further examine buyers’ emotions and intentions for the lowest rating reviews, we
 apply nrc sentiment lexicon in the sentiment dataset in the tidytext package. The nrc sentiment
 lexicon categorizes words in a binary fashion (yes or no) into categories of positive, negative,
 anger, anticipation, disgust, fear, joy, sadness, surprise, and trust (Silge & Robinson, 2017).
+
+![WC_Sentiment](/images/WC_Sentiment.png)
+
 From the word cloud inner joined with nrc sentiment lexicon, we find that among the lowest
 rating reviews,
 1. Google Nest Hub Max buyers are angrier than Amazon Echo Show buyers as they
@@ -59,6 +68,9 @@ in the customer reviews. We set n to 4 to examine pairs of four consecutive word
 “quadrograms''. From the following graphs below, we are able to see what words tend to be
 adjacent to each other. There are similarities in the reviews as “weather” and “news” are
 connected in both products, as well as “tv” and “lights”.
+
+![Qua_Echo](/images/Qua_Echo.png)
+![Qua_google](/images/Qua_google.png)
 
 From Amazon Echo Show’s quadrogram network, we find that
 1. For watching purposes, Amazon Echo Show buyers use the product to make calls,
