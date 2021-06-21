@@ -1313,3 +1313,37 @@ print(hult_kmeans_pca.iloc[: , 0].value_counts())
 1    53
 0    43
 2    41
+
+##Analysis Results
+Currently the population of our survey is evenly split between MacBook (50.4%) and Windows (49.6%). However, the population is changing its preferences. Potential MacBook users are growing 5.8% and Windows users are shrinking 8.7%. This indicates a loss of interest in Windows laptops given the same price. Based on our analysis and clustering we can provide the following insights:
+
+##Main Insights
+**Insight #1**
+Artistic people in cluster zero strongly prefer MacBook over Windows. They also reported a strong interest in keeping a MacBook as their next laptop. In grouping cluster zero based on nationality, gender, age and program for further analysis we discovered that people are mostly men originally from North America between 21 and 29 years old and pursuing a one year business analytics program.
+
+Recommendation
+We strongly suggest to the manager to implement a targeted discount program for first year MSBA students for marketing analytics and design software running on Mac. Mac has great software programs for designing, video and picture editing and it is also recognized for innovation, imagination, creation of new ideas. Since we see that these are artistic people, the company should create a package offering Photoshop, Inshop Pro, Splice Pro more of these programs used for editing, that they can offer universities and the univerisity can offer this package for free to students buying a Macbook as their next laptop.
+
+**Insight #2**
+Based on the big five trait, we see that there is customer gain specifically in cluster 2 party animals with no customer loss within that group, indicating promising marketing opportunities. For the party animals in cluster 2, they are mostly Europeans in their twenties and thirties and the likelihood of being male is slightly more than being female. Their programs are mostly in one year business analytics and none in DD (MBA & disruptive innovation).
+
+Based on hult DNA, there is customer gain specifically in cluster 1 geek with no customer loss as well, which would be another target group for great marketing opportunities. Cluster 1 Geeks are most likely African Americans in their forties from Africa and South America. There is also slightly more likelihood of being male than female. Their programs are mostly in one year business analytics program.
+
+Both party animals and geeks are good with people. Party animals are extroverted, who tend to be enthusiastic, action-oriented and have a pronounced engagement with the external world. Geeks excel at team building and they are results- driven.
+
+Recommendation
+Based on the insights, in order to ensure their potential new customers, Apple should design their marketing brand image to emphasize on its contribution to human connections. Not only in demonstrating more functions in communicating, but also in increasing more smiling faces and scenes of group work and social gatherings in the advertisement to attract the appealing crowd. Beats by Dr.Dre was one way for them to market music and target some other type of customer, they also created Apple music offering a student discount. The same way they can offer a discount to Hult students, if working with Hult, or a student discount when showing a valid student id when they purchase a Macbook they get Beats by Dr. Dre or a speaker, since a speaker is a more social object.
+
+**Insight #3**
+We noticed a consumer loss from the Underdeveloped group. This group of people are from the age groups of 20’s and 30’s, doing the one year business analytics, and a high volume of them are from South America and an even split between male and female. Underdeveloped students with these characteristics when finding the smallest error, they will look for something better or something of their convenience. Adding to this, many students that come from those countries might be on a student/bank loan.
+
+Recommendation
+To support those students and to make them stay loyal with Apple, the company should offer a one year guarantee on their products providing full coverage in all of the students Apple products. One thing that is very common from the Apple products is that the screen from the Iphone keeps breaking. Apple should think about expanding their customer support and adding a screen repair or replacement. As well as, allowing to trade every Apple product for discounts when buying a Macbook, not necessarily trade another Macbook but also being able to trade your Iphone or Ipad for discounts on the next purchase for a Macbook.To support those students and to make them stay loyal with Apple, the company should offer a one year guarantee on their products providing full coverage in all of the students Apple products. One thing that is very common from the Apple products is that the screen from the Iphone keeps breaking. Apple should think about expanding their customer support and adding a screen repair or replacement. As well as, allowing to trade every Apple product for discounts when buying a Macbook, not necessarily trade another Macbook but also being able to trade your Iphone or Ipad for discounts on the next purchase for a Macbook.
+
+##Overall Conclusion
+Apple is a company that when having one of their products you do not want to buy any other brand. Regarding this situation, the analysis was based primarily on business analytics students that need a programming computer or a software that allows them to work properly. Even with that, Apple can be compatible with many softwares and it is very user friendly. If Apple wants to increase their sales of Macbooks, they will want to follow our previous recommendations because they are based on different behaviors so each recommendation fits the different types of people. An overall recommendation for Apple is that they have a range of multiple products that they can use on their favor, creating packages, discounts, offering another free product is always been a way to attract people to buy a product.
+
+##Sources
+Crowe Associates. (2019, August 15). The “big 5” Personality traits | Crowe Associates. Crowe Associates | Committed to People Development. Retrieved from http://www.crowe-associates.co.uk/coaching-tools/the-big-5-personality-traits/
+
+Hult DNA Development Guide (2016). Retrieved from https://www.coursehero.com/file/45126181/Hult-DNA-Development-Guide-2016-17pdf/
