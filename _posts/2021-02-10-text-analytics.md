@@ -28,7 +28,7 @@ Following the steps of tokenization, grouping, counting frequencies and removing
 we are able to generate token frequency histograms to see which words appear the most in the
 corresponding reviews. 
 
-![Most Relevant Reviews](/images/Most Relevant Reviews.png)
+![Most_relevant_reviews](/images/Most_relevant_reviews.png)
 
 Comparing most relevant reviews of Amazon Echo Show and Google
 Nest Hub Max, we can see that
@@ -44,7 +44,7 @@ frequency more directly. From the word cloud generated for the lowest rating rev
 discover that Amazon Echo Show buyers mentioned more on the device’s “screen”, while it is
 not a problem for Google Nest Hub Max buyers.
 
-![Lowest Rating Reviews](/images/Lowest Rating Reviews.png)
+![Lowest_rating_reviews](/images/Lowest_rating_reviews.png)
 
 ### Word Cloud with Sentiment
 In order to further examine buyers’ emotions and intentions for the lowest rating reviews, we
